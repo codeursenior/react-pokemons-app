@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import Pokemon from '../models/pokemon';
 import formatType from '../helpers/format-type';
 
@@ -6,12 +6,35 @@ type Props = {
   pokemon: Pokemon
 };
 
+type Fields = {
+    value: any,
+    error?: string
+};
+
+type Form = {
+  name: Fields,
+  hp: Fields,
+  cp: Fields,
+  types: Fields
+}
+
 const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
+
+  const [form, setForm] = useState<Form>({
+    name: { value: pokemon.name },
+    hp: { value: pokemon.hp },
+    cp: { value: pokemon.cp },
+    types: { value: pokemon.types }
+  });
 
   const types: string[] = [
     'Plante', 'Feu', 'Eau', 'Insecte', 'Normal', 'Electrik',
     'Poison', 'Fée', 'Vol', 'Combat', 'Psy'
   ];
+
+  const hasType = (type: string): boolean => {
+    return form.types.value.includes(type);
+  }
  
   return (
     <form>
@@ -26,17 +49,17 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
                 {/* Pokemon name */}
                 <div className="form-group">
                   <label htmlFor="name">Nom</label>
-                  <input id="name" type="text" className="form-control"></input>
+                  <input id="name" type="text" name="name" className="form-control" value={form.name.value}></input>
                 </div>
                 {/* Pokemon hp */}
                 <div className="form-group">
                   <label htmlFor="hp">Point de vie</label>
-                  <input id="hp" type="number" className="form-control"></input>
+                  <input id="hp" type="number" name="hp" className="form-control" value={form.hp.value}></input>
                 </div>
                 {/* Pokemon cp */}
                 <div className="form-group">
                   <label htmlFor="cp">Dégâts</label>
-                  <input id="cp" type="number" className="form-control"></input>
+                  <input id="cp" type="number" name="cp" className="form-control" value={form.cp.value}></input>
                 </div>
                 {/* Pokemon types */}
                 <div className="form-group">
@@ -44,7 +67,7 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
                   {types.map(type => (
                     <div key={type} style={{marginBottom: '10px'}}>
                       <label>
-                        <input id={type} type="checkbox" className="filled-in"></input>
+                        <input id={type} type="checkbox" name="types" className="filled-in" value={type} checked={hasType(type)}></input>
                         <span>
                           <p className={formatType(type)}>{ type }</p>
                         </span>
