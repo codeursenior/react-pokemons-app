@@ -103,6 +103,24 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
     return newForm.name.isValid && newForm.hp.isValid && newForm.cp.isValid;
   }
 
+  const isTypesValid = (type: string): boolean => {
+    // Cas n°1: Le pokémon a un seul type, qui correspond au type passé en paramètre.
+    // Dans ce cas on revoie false, car l'utilisateur ne doit pas pouvoir décoché ce type (sinon le pokémon aurait 0 type, ce qui est interdit)
+    if (form.types.value.length === 1 && hasType(type)) {
+      return false;
+    }
+    
+    // Cas n°1: Le pokémon a au moins 3 types.
+    // Dans ce cas il faut empêcher à l'utilisateur de cocher un nouveau type, mais pas de décocher les types existants.
+    if (form.types.value.length >= 3 && !hasType(type)) { 
+      return false; 
+    } 
+    
+    // Après avoir passé les deux tests ci-dessus, on renvoie 'true', 
+    // c'est-à-dire que l'on autorise l'utilisateur à cocher ou décocher un nouveau type.
+    return true;
+  }
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const isFormValid = validateForm();
@@ -157,7 +175,7 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
                   {types.map(type => (
                     <div key={type} style={{marginBottom: '10px'}}>
                       <label>
-                        <input id={type} type="checkbox" name="types" className="filled-in" value={type} checked={hasType(type)} onChange={e => selectType(type, e)}></input>
+                        <input id={type} type="checkbox" name="types" className="filled-in" value={type} checked={hasType(type)} disabled={!isTypesValid(type)} onChange={e => selectType(type, e)}></input>
                         <span>
                           <p className={formatType(type)}>{ type }</p>
                         </span>
