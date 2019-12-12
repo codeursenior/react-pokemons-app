@@ -69,10 +69,12 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(form);
-    history.push(`/pokemons/${pokemon.id}`);
+    const isFormValid = validateForm();
+    if(isFormValid) {
+      history.push(`/pokemons/${pokemon.id}`);
+    }
   }
- 
+
   return (
     <form onSubmit={(e) => handleSubmit(e)}>
       <div className="row">
