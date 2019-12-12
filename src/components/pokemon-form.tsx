@@ -7,16 +7,17 @@ type Props = {
   pokemon: Pokemon
 };
 
-type Fields = {
-    value: any,
-    error?: string
+type Field = {
+    value?: any,
+    error?: string,
+    isValid?: boolean
 };
 
 type Form = {
-  name: Fields,
-  hp: Fields,
-  cp: Fields,
-  types: Fields
+  name: Field,
+  hp: Field,
+  cp: Field,
+  types: Field
 }
 
 const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
@@ -24,10 +25,10 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
   const history = useHistory();
 
   const [form, setForm] = useState<Form>({
-    name: { value: pokemon.name },
-    hp: { value: pokemon.hp },
-    cp: { value: pokemon.cp },
-    types: { value: pokemon.types }
+    name: { value: pokemon.name, isValid: true },
+    hp: { value: pokemon.hp, isValid: true },
+    cp: { value: pokemon.cp, isValid: true },
+    types: { value: pokemon.types, isValid: true }
   });
 
   const types: string[] = [
@@ -60,9 +61,10 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const fieldName = e.target.name;
     const fieldValue = e.target.value;
-    const updateState = {[fieldName]: { value: fieldValue }};
+    const newField = { [fieldName]: { value: fieldValue } };
 
-    setForm({...form, ...updateState});
+    setForm({ ...form, ...newField});
+  }
   }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
