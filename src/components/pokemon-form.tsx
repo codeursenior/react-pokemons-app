@@ -45,16 +45,16 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
 
     if(checked) {
       // Si l'utilisateur coche un type, on l'ajoute à la liste des types du pokémon.
-      const newTypes = form.types.value.concat([type]);
-      const updateState = {types: { value: newTypes }};
+      const newTypes: string[] = form.types.value.concat([type]);
+      const newField: Field = { value: newTypes };
 
-      setForm({...form, ...updateState});
+      setForm({...form, ...{ types: newField }});
     } else {
       // Si l'utilisateur décoche un type, on le retire à la liste des types du pokémon.
-      const newTypes = form.types.value.filter((currentType: string) => currentType !== type);
-      const updateState = {types: { value: newTypes }};
+      const newTypes: string[] = form.types.value.filter((currentType: string) => currentType !== type);
+      const newField: Field = { value: newTypes };
 
-      setForm({...form, ...updateState});
+      setForm({...form, ...{ types: newField }});
     }
   }
 
