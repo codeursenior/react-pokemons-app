@@ -59,9 +59,9 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon}) => {
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const fieldName = e.target.name;
-    const fieldValue = e.target.value;
-    const newField = { [fieldName]: { value: fieldValue } };
+    const fieldName: string = e.target.name;
+    const fieldValue: string = e.target.value;
+    const newField: Field = { [fieldName]: { value: fieldValue } };
 
     setForm({ ...form, ...newField});
   }
