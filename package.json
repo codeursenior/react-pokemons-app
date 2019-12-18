@@ -14,8 +14,8 @@
     "typescript": "3.6.4"
   },
   "scripts": {
-    "prestart": "json-server --watch src/models/db.json --port=3001",
     "start": "react-scripts start",
+    "start:api": "json-server --watch src/models/db.json --port=3001",
     "build": "react-scripts build"
   },
   "eslintConfig": {
