@@ -186,7 +186,7 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon, isEditForm}) => {
             <div className="card-stacked">
               <div className="card-content">
                 {/* Pokemon picture */}
-                {isAddForm && (
+                {isAddForm() && (
                   <div className="form-group">
                     <label htmlFor="picture">Image</label>
                     <input id="picture" type="text" name="picture" className="form-control" value={form.picture.value} onChange={e => handleInputChange(e)}></input>
