@@ -67,7 +67,7 @@ const Login: FunctionComponent = () => {
       setMessage('👉 Tentative de connexion en cours ...');
       AuthenticationService.login(form.username.value, form.password.value).then(isAuthenticated => {
         if(!isAuthenticated) {
-          setMessage('🔐 Identificant ou mot de passe incorrect.');
+          setMessage('🔐 Identifiant ou mot de passe incorrect.');
           return;
         }
         
@@ -103,7 +103,7 @@ const Login: FunctionComponent = () => {
                 {/* Field password */}
                 <div className="form-group">
                   <label htmlFor="password">Mot de passe</label>
-                  <input id="password" type="text" name="password" className="form-control" value={form.password.value} onChange={e => handleInputChange(e)}></input>
+                  <input id="password" type="password" name="password" className="form-control" value={form.password.value} onChange={e => handleInputChange(e)}></input>
                   {/* error */}
                   {form.password.error &&
                   <div className="card-panel red accent-1"> 
