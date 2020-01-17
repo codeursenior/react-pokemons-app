@@ -46,20 +46,19 @@ const PokemonForm: FunctionComponent<Props> = ({pokemon, isEditForm}) => {
 
   const selectType = (type: string, e: React.ChangeEvent<HTMLInputElement>): void => {
     const checked = e.target.checked;
+    let newField: Field;
 
     if(checked) {
-      // Si l'utilisateur coche un type, on l'ajoute à la liste des types du pokémon.
+      // Si l'utilisateur coche un type, à l'ajoute à la liste des types du pokémon.
       const newTypes: string[] = form.types.value.concat([type]);
-      const newField: Field = { value: newTypes };
-
-      setForm({...form, ...{ types: newField }});
+      newField = { value: newTypes };
     } else {
-      // Si l'utilisateur décoche un type, on le retire à la liste des types du pokémon.
+      // Si l'utilisateur décoche un type, on le retire de la liste des types du pokémon.
       const newTypes: string[] = form.types.value.filter((currentType: string) => currentType !== type);
-      const newField: Field = { value: newTypes };
-
-      setForm({...form, ...{ types: newField }});
+      newField = { value: newTypes };
     }
+
+    setForm({...form, ...{ types: newField }});
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
