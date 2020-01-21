@@ -69,7 +69,7 @@ export default class PokemonService {
   }
 
   static addPokemon(pokemon: Pokemon): Promise<Pokemon> {
-    pokemon.created = new Date(pokemon.created);
+    delete pokemon.created;
 
     if(this.isDev) {
       return fetch(`http://localhost:3001/pokemons`, {
